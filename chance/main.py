@@ -2,7 +2,6 @@ import random
 import sys
 import os 
 
-
 COIN = ['heads', 'tails']
 DICE = [1, 2, 3, 4, 5, 6]
 D20 = range(0, 20)
@@ -15,26 +14,28 @@ def getInput():
     print("What would you like to do? Seperate multiple choices with a comma")
     print('C. Coin')
     print('D. Dice')
-    print('D20. D20 dice')
+    print('D20. D20 Dice')
     print('Q. Quit')
 
-    while True: # Checks for only one input
-        choice = input(">").lower().split(',')
+    while True: 
+        choice = input(">").lower()
         output = []
-        if len(choice == 1 and choice[0] != 'q'):
+        if choice == "q":
+            sys.exit()
+
+        if len(choice) == 1:
             print("Error: Invalid input")
         else:
             break
 
+    choice = choice.split(',')
     for c in choice:
         if c == 'c':
-            output.append({'type': 'coin', 'amount': c})
+            output.append({'type': 'coin'})
         elif c == 'd':
-            output.append({'type': 'dice', 'amount': c})
+            output.append({'type': 'dice'})
         elif c == 'd20':
-            output.append({'type': 'd20', 'amount': c})
-        elif c == 'q':
-            sys.exit()
+            output.append({'type': 'd20'})
     return output
 
 def interpret(output):
@@ -85,12 +86,23 @@ def writePossibilityCode(runData):
     code = addToCode(code, "return outcomes", "    ")
     return code
 
+def printPossibleOutcomes(outcomes):
+    print('Possible outcomes:')
+    for o in outcomes:
+        output = "  "
+        for i in o:
+            output += str(i) + ', '
+        print(output[:-2]) 
+
+def run():
+    output = getInput()
+    runData = interpret(output)
+    outcomes = getPossibleOutcomes(runData)
+    printPossibleOutcomes(outcomes)
 
 
-
-
-
-print(getPossibleOutcomes([['heads','tails'],[1,2,3,4,5,6]]))
+if __name__ == "__main__":
+    run()
             
 
 
