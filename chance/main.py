@@ -93,6 +93,7 @@ def printPossibleOutcomes(outcomes):
         for i in o:
             output += str(i) + ', '
         print(output[:-2]) 
+    print("Number of outcomes:", len(outcomes))
 
 def run():
     output = getInput()
@@ -100,6 +101,9 @@ def run():
     outcomes = getPossibleOutcomes(runData)
     printPossibleOutcomes(outcomes)
 
+
+
+    
 
 if __name__ == "__main__":
     run()
